@@ -32,7 +32,7 @@ function Profile() {
 
   const addTodo = async () => {
     try {
-      const response = await fetch("http://localhost:3000/todo/add-todo", {
+      const response = await fetch("https://todo-app-ty8k.onrender.com/todo/add-todo", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -57,7 +57,7 @@ function Profile() {
   };
 
   const logout = async () => {
-    const response = await fetch("http://localhost:3000/user/logout", {
+    const response = await fetch("https://todo-app-ty8k.onrender.com/user/logout", {
       method: "POST",
       credentials: "include",
     });
@@ -71,7 +71,7 @@ function Profile() {
 
   const deleteTodo = async (Id) => {
     try {
-      const response = await fetch(`http://localhost:3000/todo/delete-todo/${Id}`, {
+      const response = await fetch(`https://todo-app-ty8k.onrender.com/todo/delete-todo/${Id}`, {
         method: "DELETE",
         headers: {
           "content-type": "application/json",
@@ -95,7 +95,7 @@ function Profile() {
   };
 
   const updateTodo = async function () {
-    const response = await fetch("http://localhost:3000/todo/update", {
+    const response = await fetch("https://todo-app-ty8k.onrender.com/todo/update", {
       method: "PATCH",
       headers: {
         "content-type": "application/json"
@@ -123,7 +123,7 @@ const handleEdit = (item) => {
 
 const isCompleteTodo = async (id, isComplete) => {
 try {
-      const response = await fetch(`http://localhost:3000/todo/isComplete/${id}`, {
+      const response = await fetch(`https://todo-app-ty8k.onrender.com/todo/isComplete/${id}`, {
         method: "PATCH",
         headers: {
           "content-type": "application/json",

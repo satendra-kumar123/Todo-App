@@ -11,7 +11,7 @@ function ProtectedRoute({children}) {
 
   useEffect(() => {
     async function checkUser() {
-      response = await fetch('http://localhost:3000/user/me', {
+      response = await fetch('https://todo-app-ty8k.onrender.com/user/me', {
         credentials: "include"
       })
       if(!response.ok) {

@@ -24,7 +24,7 @@ const Register = () => {
     formData.append("profilePic", profilePic);
 
     try {
-      const response = await fetch("http://localhost:3000/user/signup", {
+      const response = await fetch("https://todo-app-ty8k.onrender.com/user/signup", {
         method: "POST",
         body: formData,
         credentials: "include",

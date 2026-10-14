@@ -33,7 +33,7 @@ export default function UpdateProfile() {
 
   const updatePassword = async () => {
     try {
-      const response = await fetch('http://localhost:3000/user/update-password',{
+      const response = await fetch('https://todo-app-ty8k.onrender.com/user/update-password',{
         method: "POST",
         headers: {
           'content-type': 'application/json'
@@ -64,7 +64,7 @@ export default function UpdateProfile() {
 
   const updateProfile = async () => {
     try {
-      const response = await fetch('http://localhost:3000/user/update-profile',{
+      const response = await fetch('https://todo-app-ty8k.onrender.com/user/update-profile',{
         method: "PATCH",
         headers: {
           'content-type': 'application/json'
@@ -99,7 +99,7 @@ export default function UpdateProfile() {
       const obj = new FormData()
       obj.append('profileImg', pic)
 
-      const response = await fetch('http://localhost:3000/user/update-profilePic',{
+      const response = await fetch('https://todo-app-ty8k.onrender.com/user/update-profilePic',{
         method: "POST",
         body: obj,
         credentials: "include"
