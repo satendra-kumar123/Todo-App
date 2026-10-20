@@ -56,7 +56,8 @@ async function signup(req, res) {
 
     const options = {
         httpOnly: true,
-        secure: true
+        secure: true,
+        sameSite: "none"
     }
 
     return res
@@ -100,6 +101,7 @@ async function login(req, res) {
         const options = {
             httpOnly: true,
             secure: true,
+            sameSite: "none"
         }
         return res
         .status(201)
@@ -201,6 +203,7 @@ async function logout(req, res) {
     const options = {
         httpOnly: true,
         secure: true,
+        sameSite: "none"
     }
 
     return res
