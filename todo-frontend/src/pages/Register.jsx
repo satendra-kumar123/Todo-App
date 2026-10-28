@@ -47,7 +47,7 @@ const Register = () => {
   };
 
   return (
-    <div className="h-max w-1/2 shadow shadow-amber-500 rounded-2xl m-auto p-5">
+    <div className="p-4 md:w-1/2 md:m-auto md:border-2 md:border-amber-600 md:mt-5 md:rounded-xl ">
 
       {/* {btn back to home} */}
       <div className="flex justify-between items-center">
@@ -104,7 +104,7 @@ const Register = () => {
           className="h-10 w-full rounded-xl pl-4 border-2 border-amber-300 outline-0"
         />
 
-        <button className="h-10 w-1/2 rounded-xl pl-4 border-2 border-blue-300 m-auto bg-blue-50 text-xl font-bold text-blue-600 hover:cursor-pointer active:bg-amber-400">submit</button>
+        <button className="bg-blue-600 w-1/2 m-auto p-2 rounded-xl font-medium text-white active:bg-red-600 ">submit</button>
       </form>
 
       {/* { refer to login} */}

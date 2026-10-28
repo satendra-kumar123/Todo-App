@@ -42,7 +42,7 @@ function Login() {
   };
 
   return (
-    <div className="h-max w-1/2 m-auto shadow shadow-amber-500 rounded-2xl p-5">
+    <div className="p-4 md:w-1/2 md:m-auto md:border-2 md:border-amber-600 md:mt-5 md:rounded-xl">
 
       {/* { back to home btn } */}
       <div className="flex justify-between items-center">
@@ -78,7 +78,7 @@ function Login() {
           className="h-10 w-full rounded-xl pl-4 border-2 border-amber-300 outline-0"
         />
 
-        <button className="h-10 w-1/2 rounded-xl pl-4 border-2 border-blue-300 m-auto bg-blue-50 text-xl font-bold text-blue-600 hover:cursor-pointer">login</button>
+        <button className="bg-blue-600 w-1/2 m-auto p-2 rounded-xl font-medium text-white active:bg-red-600 ">Login</button>
       </form>
 
       {/* { go to register link } */}
