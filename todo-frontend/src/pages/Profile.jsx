@@ -200,7 +200,7 @@ try {
             <h3>{todoList?.length}</h3>
           </div>
 
-          <div className="flex flex-col gap-0.5 h-[80%] overflow-auto scrollbar-none" >
+          <div className="flex flex-col gap-1 h-[80%] overflow-auto scrollbar-none p-4 " >
             {
               todoList.length > 0 && todoList.toReversed().map((item) => {
                 return (
