@@ -4,10 +4,10 @@ const addTodo = async (req, res) => {
     try {
         const {todo} = req.body
         if(!todo){
-            return res.status(402).json({message: "todo not available"})
+            return res.status(400).json({message: "todo not available"})
         }
         if(todo.trim() == "") {
-            return res.status().json({
+            return res.status(400).json({
                 message: "todo field can not be empty"
             })
         }
@@ -21,7 +21,7 @@ const addTodo = async (req, res) => {
 
     
         if(!todoItem) {
-            return res.status().json({
+            return res.status(500).json({
                 message: "your todo not created"
             })
         }
@@ -30,15 +30,15 @@ const addTodo = async (req, res) => {
 
     
         if(!todos) {
-            return res.status(400).json({message:"todo not available"})
+            return res.status(500).json({message:"todo not available"})
         }
         
-        return res.status(200).json({
+        return res.status(201).json({
             message: "accepted todo",
             todos
         })
     } catch (error) {
-        res.status(400).json({message: "todo not added"})
+        res.status(500).json({message: "todo not added"})
         
     }
 
@@ -47,11 +47,9 @@ const addTodo = async (req, res) => {
 const deleteTodo = async (req, res) => {
     try {
         const {id} = req.params
-        console.log(id)
         const todo = await Todos.findByIdAndDelete(id)
-        console.log(todo)
         if(!todo) {
-            return res.status().json({
+            return res.status(500).json({
                 message: "your todo is not deleted"
             })
         }
@@ -62,7 +60,7 @@ const deleteTodo = async (req, res) => {
             todos
         })
     } catch (error) {
-        res.status(400).json({
+        res.status(500).json({
             message: error
         })
     }
@@ -90,7 +88,7 @@ const updateTodo = async (req, res) => {
         
         return res.status(200).json({message: "updated", todos})
     } catch (error) {
-        return res.status(403).json({
+        return res.status(500).json({
             message: "update todo failed"
         })
     }
@@ -111,7 +109,7 @@ const isCompleteTodo = async (req, res) => {
         const todos = await Todos.find({createdBy: req.user?._id})
 
         if(!todos) {
-            return res.status(200).json({
+            return res.status(500).json({
                 message: "todos not found"
             })
         }
@@ -128,7 +126,7 @@ const isCompleteTodo = async (req, res) => {
         })
         
     } catch (error) {
-        return res.status(405).json({
+        return res.status(500).json({
             message: "something went wrong"
         })
     }

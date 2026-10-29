@@ -43,7 +43,7 @@ async function signup(req, res) {
         },
     })
     if(!user) {
-        return res.status(401).json({
+        return res.status(500).json({
             message: 'user not created'
         })
     }
@@ -94,7 +94,7 @@ async function login(req, res) {
 
 
         if(!loggedInUser) {
-            return res.status(400).json({
+            return res.status(401).json({
                 message: "user not logged in here"
             })
         }
@@ -104,7 +104,7 @@ async function login(req, res) {
             sameSite: "none"
         }
         return res
-        .status(201)
+        .status(200)
         .cookie('accessToken', accessToken, {...options, maxAge: 24*60*60*1000})
         .cookie('refreshToken', refreshToken, {...options, maxAge: 7*24*60*60*1000})
         .json({
@@ -112,7 +112,7 @@ async function login(req, res) {
             message: 'user succussfully login'
         })
     } catch (error) {
-        res.status(400).json({message: error})
+        return res.status(500).json({message: error})
     }
 }
 
@@ -134,18 +134,18 @@ async function updateProfile(req, res) {
         const updatedUser = await user.save()
 
         if(!updatedUser) {
-            return res.status(400).json({
+            return res.status(500).json({
                 message: "user not updated"
             })
         }
 
-        return res.status(201).json({
+        return res.status(202).json({
             message: "update field",
             username: updatedUser.username,
             mob: updatedUser.mob
         })
     } catch (error) {
-        return res.status(400).json({message: error})
+        return res.status(500).json({message: error})
     }
 }
 
@@ -156,7 +156,6 @@ async function updatePassword(req, res) {
         const hashedPassword = user.password
 
         const result = await comparePassword(currentPassword, hashedPassword)
-        console.log(result)
         if(!result){
             return res.status(400).json({
                 message: "password not matched"
@@ -164,7 +163,7 @@ async function updatePassword(req, res) {
         }
 
         if(newPassword !== conformPassword) {
-            return res.status(500).json({
+            return res.status(400).json({
                 message: "password not same"
             })
         }
@@ -173,17 +172,17 @@ async function updatePassword(req, res) {
         user.password = password
         const updatedPassword = await user.save({validateBeforeSave: false})
         if(!updatedPassword) {
-            return res.status(400).json({
+            return res.status(500).json({
                 message: "password not saved"
             })
         }
 
-        return res.status(201).json({
+        return res.status(202).json({
             message: "password updated"
         })
 
     } catch (error) {
-       return res.status(400).json({message: error})
+       return res.status(500).json({message: error})
     }
 }
 
@@ -216,13 +215,19 @@ async function logout(req, res) {
 }
 
 async function me(req, res) {
-    const user = req.user
-    const todos = await Todos.find({createdBy: user._id})
-    return res.status(200).json({
-        message: "you are authenticated",
-        user,
-        todos
-    })
+    try {
+        const user = req.user
+        const todos = await Todos.find({createdBy: user._id}).lean()
+        return res.status(200).json({
+            message: "you are authenticated",
+            user,
+            todos
+        })
+    } catch (error) {
+        return res.status(500).json({
+            message: error
+        })
+    }
 }
 
 async function updateProfilePic(req, res) {
@@ -236,7 +241,7 @@ async function updateProfilePic(req, res) {
 
         const user = await User.findOne({_id: req.user?._id})
         if(!user) {
-            return
+            return res.status(404).json({message: "user not found"})
         }
 
         let url
@@ -246,7 +251,7 @@ async function updateProfilePic(req, res) {
         if(profilePicPublicId) {
             const response = await deleteFromCloudinary(profilePicPublicId)
             if(!response) {
-                return res.status(400).json({
+                return res.status(503).json({
                     message: "old pic not deleted"
                 })
             } else {
@@ -265,7 +270,7 @@ async function updateProfilePic(req, res) {
         
 
         if(!respond) {
-            return res.status(400).json({
+            return res.status(504).json({
                     message: "pic not uploaded on cloudinary"
             })
         }
@@ -280,17 +285,17 @@ async function updateProfilePic(req, res) {
 
         const createdUser = await user.save({validateBeforeSave: false})
         if(!createdUser) {
-            return res.status(400).json({
+            return res.status(500).json({
                     message: "user not created"
             })
         }
 
-        return res.status(200).json({
+        return res.status(202).json({
             message: "pic is updated",
             url
         })
     } catch (error) {
-        res.status(400).json({
+        return res.status(500).json({
             message: error
         })
     }

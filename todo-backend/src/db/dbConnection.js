@@ -5,7 +5,6 @@ const dbConnection = async () => {
         await mongoose.connect(process.env.MONGODB_URI, {
             dbName: "Todo-App"
         })
-        console.log("db connected ")
     } catch (error) {
         return error
     }

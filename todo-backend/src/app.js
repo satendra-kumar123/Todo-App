@@ -38,7 +38,7 @@ app.patch('/todo/isComplete/:id', verifyJwt, isCompleteTodo)
 
 // error handling function
 app.use((err, req, res, next) => {
-    return res.status().json({
+    return res.status(500).json({
         message: "error",
         err
     })
